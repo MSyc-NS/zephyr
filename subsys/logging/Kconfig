@@ -279,6 +279,40 @@ config LOG_FRONTEND
 	  When enabled, logs are redirected to a custom frontend instead
 	  of being processed by the logger.
 
+config LOG_BACKEND_FLASH
+	bool "Enable FLASH backend"
+	depends on FLASH
+	depends on FILE_SYSTEM_LITTLEFS
+	default n
+	help
+	  When enabled backend is using FLASH to output logs.
+
+if LOG_BACKEND_FLASH
+
+config OVERWRITE_OLD_LOG_FILES
+	bool "Enable old log files overwrite"
+	default y
+	help
+	  When enabled backend overwrites oldest log files.
+	  In other case, when memory is full, new messages are dropped.
+
+config LOG_FLASH_FILE_SIZE
+	int "Log file size as multiplication of flash page size."
+	default 1
+	range 1 10
+	help
+	  Max log file size (in bytes) is a multiplication of
+	  LOG_FLASH_FILE_SIZE and flash page size.
+
+config LOG_FLASH_FILENAME
+	string "Log files name prefix"
+	default "log_"
+	help
+	  User defined name of log files saved in the flash memory.
+	  The prefix is followed by the number of log file.
+
+endif # LOG_BACKEND_FLASH
+
 config LOG_BACKEND_UART
 	bool "Enable UART backend"
 	depends on UART_CONSOLE

@@ -15,6 +15,15 @@ if(NOT CONFIG_LOG_MINIMAL)
   )
 
   zephyr_sources_ifdef(
+    CONFIG_LOG_BACKEND_FLASH
+    log_backend_flash.c
+  )
+
+  zephyr_include_directories(
+    ${ZEPHYR_BASE}/../modules/fs/littlefs
+  )
+
+  zephyr_sources_ifdef(
     CONFIG_LOG_CMDS
     log_cmds.c
   )
