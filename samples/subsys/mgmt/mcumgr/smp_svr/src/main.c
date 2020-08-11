@@ -23,6 +23,9 @@
 #ifdef CONFIG_MCUMGR_CMD_STAT_MGMT
 #include "stat_mgmt/stat_mgmt.h"
 #endif
+#ifdef CONFIG_MCUMGR_CMD_FS_MGMT
+#include "fs_mgmt/fs_mgmt.h"
+#endif
 
 #define LOG_LEVEL LOG_LEVEL_DBG
 #include <logging/log.h>
@@ -79,6 +82,9 @@ void main(void)
 #endif
 #ifdef CONFIG_MCUMGR_CMD_STAT_MGMT
 	stat_mgmt_register_group();
+#endif
+#ifdef CONFIG_MCUMGR_CMD_FS_MGMT
+	fs_mgmt_register_group();
 #endif
 #ifdef CONFIG_MCUMGR_SMP_BT
 	start_smp_bluetooth();
